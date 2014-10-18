@@ -1,6 +1,5 @@
 package com.codekatas.checkout;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,6 +45,21 @@ public class CheckoutTest {
         assertEquals(175, price("AAABB"), 0);
         assertEquals(190, price("AAABBD"), 0);
         assertEquals(190, price("DABABA"), 0);
+    }
+
+    @Test
+    public void shouldCalculateTotalItemsPriceIncrementally() throws Exception {
+        assertEquals(0, price(""), 0);
+        checkout.scan("A");
+        assertEquals(50, checkout.calculateTotalItemsPrice(), 0);
+        checkout.scan("B");
+        assertEquals(80, checkout.calculateTotalItemsPrice(), 0);
+        checkout.scan("A");
+        assertEquals(130, checkout.calculateTotalItemsPrice(), 0);
+        checkout.scan("A");
+        assertEquals(160, checkout.calculateTotalItemsPrice(), 0);
+        checkout.scan("B");
+        assertEquals(175, checkout.calculateTotalItemsPrice(), 0);
     }
 
     private double price(String items) {
